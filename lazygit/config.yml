@@ -1,0 +1,2 @@
+os:
+  shellFunctionsFile: ~/.dotfiles/.zsh_alias

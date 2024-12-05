@@ -1,0 +1,47 @@
+# anything that i want to use in LG : i have to have as a func
+ll () {
+  ls -lah
+}
+
+lg () {
+  LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml" lazygit
+}
+
+# TODO decide if want to use tmux or not
+alias tm="~/.scripts/tmux_session.sh"
+alias p=". ~/.scripts/project.sh"
+alias pn=". ~/.scripts/projectnvim.sh"
+alias dot="cd ~/.dotfiles"
+
+
+# Tava
+alias yc="yarn codegen" 
+alias yct="yarn codgen:test"
+
+alias feather:up="docker-compose -f ~/proj/feather/docker/docker-compose.yml up -d"
+alias feather:down="docker-compose -f ~/proj/feather/docker/docker-compose.yml down"
+
+alias db-prod-write="tava-cli db authenticate --auto --write-production --username ChristianAllred"
+alias db-prod="tava-cli db authenticate --auto --production --username ChristianAllred"
+alias db-staging="tava-cli db authenticate --auto --staging --username ChristianAllred"
+alias db-staging2="tava-cli db authenticate --auto --staging2 --username ChristianAllred"
+alias db-demo="tava-cli db authenticate --auto --demo --username ChristianAllred"
+alias db-demand="tava-cli db authenticate --auto --dev-demand --username ChristianAllred"
+alias db-payer="tava-cli db authenticate --auto --dev-payer --username ChristianAllred"
+alias db-provider="tava-cli db authenticate --auto --dev-provider --username ChristianAllred"
+
+ga () {
+  git commit -a -n --amend --no-edit
+}
+
+gp () {
+  CUR_BRANCH=$(git branch --show-current)
+  git push -f origin $CUR_BRANCH
+}
+
+# nvim dev stuff
+cleannvim () {
+  rm -rf $HOME/.local/state/nvim
+  rm -rf $HOME/.local/share/nvim
+  rm -rf $HOME/.cache/nvim
+}
