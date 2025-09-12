@@ -1,1 +1,3 @@
-require("callred")
+require("options")
+require("remap")
+require("lazy-manager")
