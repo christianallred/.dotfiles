@@ -2,8 +2,8 @@ return {
 	"mason-org/mason-lspconfig.nvim",
 	-- event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		"mason-org/mason.nvim",
 		"neovim/nvim-lspconfig",
+		"mason-org/mason.nvim",
 		"j-hui/fidget.nvim",
 	},
 	config = function()
@@ -33,6 +33,7 @@ return {
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("my-lsp-attach", { clear = true }),
+
 			callback = function(event)
 				-- vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 				local map = function(mode, keys, func, desc)
@@ -59,21 +60,21 @@ return {
 
 				map("n", "<leader>rs", ":LspRestart<CR>", "Restart LSP")
 
+				-- this belongs somehwere else
 				map("n", "[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
 				map("n", "]d", vim.diagnostic.goto_next, "Go to next diagnostic")
 				map("n", "<leader>d", vim.diagnostic.open_float, "Show line diagnostics")
 			end,
 		})
 
-		local ensure_installed = vim.tbl_keys(servers or {})
-
-		-- non-lsp installs for mason
-		vim.list_extend(ensure_installed, {
-			"stylua",
-			"gofumpt",
-			"prettierd",
-			"eslint_d",
-		})
+		-- local ensure_installed = vim.tbl_keys(servers or {})
+		-- -- non-lsp installs for mason
+		-- vim.list_extend(ensure_installed, {
+		-- 	"stylua",
+		-- 	"gofumpt",
+		-- 	"prettierd",
+		-- 	"eslint_d",
+		-- })
 
 		require("fidget").setup()
 
