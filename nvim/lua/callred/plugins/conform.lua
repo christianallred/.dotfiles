@@ -18,15 +18,10 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				javascript = { "prettierd", "eslint_d" },
-				-- typescript = { "prettierd", "eslint_d" },
 				typescript = { "prettierd" },
-				-- typescriptreact = { "prettierd", "eslint_d" },
 				typescriptreact = { "prettierd" },
 				go = { "gofumpt" },
 			},
-			-- Conform will run multiple formatters sequentially
-			-- You can customize some of the format options for the filetype (:help conform.format)
-			-- Conform will run the first available formatter
 			default_format_opts = {
 				lsp_format = "fallback",
 			},

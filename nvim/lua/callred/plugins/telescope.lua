@@ -9,8 +9,6 @@ return {
 	config = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
-
-		-- General configuration
 		telescope.setup({
 			-- file_ignore_patterns = {
 			-- 	"node_modules",
@@ -27,7 +25,6 @@ return {
 		})
 
 		local builtin = require("telescope.builtin")
-
 		vim.keymap.set("n", "<leader>ff", function()
 			builtin.find_files({ hidden = true })
 		end, { desc = "[f]ind [f]iles" })
@@ -42,12 +39,10 @@ return {
 
 		vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "[f]ind [t]odos" })
 
-		-- Git
 		vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "Find [g]it [c]ommits" })
 		vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Find [g]it [s]tatus" })
 		vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Find [g]it-ignorred [f]iles" })
 
-		-- Bookmarks
 		vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "[f]ind [m]arks" })
 	end,
 }

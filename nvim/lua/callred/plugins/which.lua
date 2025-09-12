@@ -10,7 +10,7 @@ return {
 			gx = {},
 		},
 		filter = function(mapping)
-			if mapping.lhs == "gx" then -- this is the the big open netRw Open shit
+			if mapping.lhs == "gx" then
 				return false
 			end
 			return true

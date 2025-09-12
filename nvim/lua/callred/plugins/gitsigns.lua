@@ -7,7 +7,6 @@ local function on_attach(bufnr)
 		vim.keymap.set(mode, l, r, opts)
 	end
 
-	-- Navigation
 	remap("n", "]c", function()
 		if vim.wo.diff then
 			return "]c"
@@ -28,7 +27,6 @@ local function on_attach(bufnr)
 		return "<Ignore>"
 	end, { expr = true, desc = "GSigns: prev hunk" })
 
-	-- Actions
 	remap("n", "<leader>gS", gs.stage_hunk, { desc = "GSigns: stage hunk" })
 	remap("n", "<leader>gu", gs.undo_stage_hunk, { desc = "GSigns: undo stage buffer" })
 
