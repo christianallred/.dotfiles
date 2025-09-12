@@ -13,6 +13,9 @@ alias p=". ~/.scripts/project.sh"
 alias pn=". ~/.scripts/projectnvim.sh"
 alias dot="cd ~/.dotfiles"
 
+# home server stuff
+alias eup="wakeonlan -i $EVILEEYORE_SERVER_IP $EVILEEYORE_SERVER_MAC"
+alias essh="ssh evileeyore@$EVILEEYORE_SERVER_IP"
 
 # Tava
 alias yc="yarn codegen" 
