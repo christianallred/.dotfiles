@@ -31,26 +31,16 @@ return {
 			},
 		}
 
-		-- local ensure_installed = vim.tbl_keys(servers or {})
-		-- -- non-lsp installs for mason
-		-- vim.list_extend(ensure_installed, {
-		-- 	"stylua",
-		-- 	"gofumpt",
-		-- 	"prettierd",
-		-- 	"eslint_d",
-		-- })
-
 		require("fidget").setup()
-
 		require("mason").setup()
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
-
 		require("mason-lspconfig").setup({
 			handlers = {
 				function(server_name)
 					local config = servers[server_name] or {}
 					config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+
 					if server_name == "ts_ls" then
 						config.root_dir = require("lspconfig.util").root_pattern(".git")
 					end
