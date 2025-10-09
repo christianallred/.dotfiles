@@ -32,9 +32,9 @@ vim.keymap.set("i", "<C-j>", "<Down>", { desc = "Move down" })
 vim.keymap.set("i", "<C-k>", "<Up>", { desc = "Move up" })
 
 vim.keymap.set("n", "<Esc>", "<cmd> noh <CR>", { desc = "Clear highlights" })
--- never use this either
-vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", { desc = "Save file" })
 
+-- enter zen mode
+vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>", { desc = "Zen Mode" })
 -- TODO: Dont know that i really care about this
 -- can use control + w instead
 vim.keymap.set("n", "<leader>sh", "<C-w>v", { desc = "[s]plit window [v]ertically" })

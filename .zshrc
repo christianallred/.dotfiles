@@ -23,15 +23,15 @@ ap () {
   export AWS_PROFILE=$(sed -n "s/\[profile \(.*\)\]/\1/p" ~/.aws/config | fzf) && echo $AWS_PROFILE > ~/.aws_profile
 }
 
-awsrest () {
+awsauth () {
   aws codeartifact login --tool npm --domain tavahealth --namespace @tava --domain-owner $TAVA_AWS_ID --repository tavahealth
   aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin $TAVA_AWS_ID.dkr.ecr.us-west-2.amazonaws.com
 }
 
-awssso () {
-  ap
+start () {
+#  ap
   aws sso login --sso-session CHRISTIAN.ALLRED
-  awsrest
+  awsauth
 }
 
 cli-reset () {

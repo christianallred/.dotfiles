@@ -12,6 +12,7 @@ return {
 		telescope.setup({
 			-- file_ignore_patterns = {
 			-- 	"node_modules",
+			-- 	".git/",
 			-- },
 			defaults = {
 				mappings = {
@@ -26,7 +27,7 @@ return {
 
 		local builtin = require("telescope.builtin")
 		vim.keymap.set("n", "<leader>ff", function()
-			builtin.find_files({ hidden = true })
+			builtin.find_files({ hidden = true, file_ignore_patterns = { ".git/" } })
 		end, { desc = "[f]ind [f]iles" })
 		vim.keymap.set("n", "<leader>fl", "<cmd>Telescope resume<CR>", { desc = "[f]ind [l]last find (resume)" })
 		vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[f]ind [k]eymaps" })
