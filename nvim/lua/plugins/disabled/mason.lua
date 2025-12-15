@@ -31,7 +31,7 @@ return {
 			},
 		}
 
-		require("fidget").setup()
+		require("fidget").setup({})
 		require("mason").setup()
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()

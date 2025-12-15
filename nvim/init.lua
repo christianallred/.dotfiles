@@ -1,4 +1,5 @@
 require("options")
+require("lsp")
 require("remap")
-require("lazy-manager")
 require("autocmd.lsp-attach")
+require("lazy-manager")
