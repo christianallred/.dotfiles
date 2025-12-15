@@ -1,18 +1,3 @@
--- -- Init Lazy Nvim package manager
--- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
--- if not vim.loop.fs_stat(lazypath) then
--- 	vim.fn.system({
--- 		"git",
--- 		"clone",
--- 		"--filter=blob:none",
--- 		"https://github.com/folke/lazy.nvim.git",
--- 		"--branch=stable", -- latest stable release
--- 		lazypath,
--- 	})
--- end
--- vim.opt.rtp:prepend(lazypath)
-
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -30,11 +15,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
-
 require("lazy").setup({
 	{ import = "plugins" },
-	{ import = "plugins.lsp" },
 	{ import = "plugins.folke" },
 }, {
 	checker = {
