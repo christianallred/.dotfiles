@@ -1,3 +1,7 @@
+-- this thing shows lsp and other status' in the bottom right
 return {
-		"j-hui/fidget.nvim",
+  "j-hui/fidget.nvim",
+  config = function()
+    require("fidget").setup({})
+  end,
 }
