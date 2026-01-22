@@ -14,6 +14,9 @@ ln -n -s ${HOME}/.dotfiles/scripts ${HOME}/.scripts
 echo "linking lazygit/"
 ln -n -s ${HOME}/.dotfiles/lazygit ${HOME}/.config/lazygit
 
+echo "linking ghostty/"
+ln -n -s ${HOME}/.dotfiles/ghostty ${HOME}/.config/ghostty
+
 echo "linking nvim/"
 ln -n -s ${HOME}/.dotfiles/nvim ${HOME}/.config/nvim
 
