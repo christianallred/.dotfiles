@@ -13,7 +13,7 @@ opt.expandtab = true -- expand tabs to spaces
 
 opt.smartindent = true -- indent properly when moving lines around
 
-opt.wrap = false -- dont wrap lines
+opt.wrap = true -- dont wrap lines
 
 opt.swapfile = false
 opt.backup = false

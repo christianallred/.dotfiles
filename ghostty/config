@@ -1,3 +1,7 @@
-# theme = TokyoNight Night
+theme = TokyoNight Night
 font-feature = -calt, -liga, -dlig
 font-size = 16
+maximize = true
+window-padding-x = 15
+window-padding-y = 15
+window-padding-color = extend

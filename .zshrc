@@ -1,4 +1,5 @@
 # Load secrets right up front
+
 if [ -f ~/.dotfiles/.zsh_secrets ]; then
   source ~/.dotfiles/.zsh_secrets
 fi
@@ -45,3 +46,5 @@ cli-reset () {
 # Added by Windsurf
 export PATH="/Users/christianallred/.codeium/windsurf/bin:$PATH"
 
+# LibPQ was not happy
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

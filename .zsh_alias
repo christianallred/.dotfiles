@@ -17,6 +17,11 @@ alias dot="cd ~/.dotfiles"
 alias eup="wakeonlan -i $EVILEEYORE_SERVER_IP $EVILEEYORE_SERVER_MAC"
 alias essh="ssh evileeyore@$EVILEEYORE_SERVER_IP"
 
+# Claude
+alias cr="claude --resume"
+alias cc="claude --continue"
+
+
 # Tava
 alias yc="yarn codegen" 
 alias yct="yarn codgen:test"
@@ -33,6 +38,15 @@ alias db-demand="tava-cli db authenticate --auto --dev-demand --username Christi
 alias db-payer="tava-cli db authenticate --auto --dev-payer --username ChristianAllred"
 alias db-provider="tava-cli db authenticate --auto --dev-provider --username ChristianAllred"
 
+alias pool-prod="tava-cli db pool --env prod"
+alias pool-staging="tava-cli db pool --env staging"
+alias pool-demo="tava-cli db pool --env demo"
+alias pool-demand="tava-cli db pool --env dev-demadn"
+alias pool-payer="tava-cli db pool --env dev-payer"
+alias pool-provider="tava-cli db pool --env dev-provider"
+
+alias gk="ghostty +list-keybinds"
+
 ga () {
   git commit -a -n --amend --no-edit
 }
@@ -47,4 +61,12 @@ cleannvim () {
   rm -rf $HOME/.local/state/nvim
   rm -rf $HOME/.local/share/nvim
   rm -rf $HOME/.cache/nvim
+}
+
+fenv () {
+  cp ~/proj/feather/apps/feather/.env $PWD/apps/feather/.env
+}
+
+nenv () {
+  cp ~/proj/feather/apps/nuna/.env $PWD/.env
 }
