@@ -65,8 +65,12 @@ cleannvim () {
 
 fenv () {
   cp ~/proj/feather/apps/feather/.env $PWD/apps/feather/.env
+  nvm use
+  yarn install
 }
 
 nenv () {
   cp ~/proj/nuna/.env $PWD/.env
+  nvm user
+  yarn install
 }
