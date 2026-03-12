@@ -68,5 +68,5 @@ fenv () {
 }
 
 nenv () {
-  cp ~/proj/feather/apps/nuna/.env $PWD/.env
+  cp ~/proj/nuna/.env $PWD/.env
 }
