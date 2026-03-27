@@ -19,11 +19,9 @@ This is a symlink-based dotfiles repo. Everything lives in `~/.dotfiles/` and ge
 | Config | Links to |
 |--------|----------|
 | `~/.zshrc` | `.zshrc` |
-| `~/.tmux.conf` | `.tmux.conf` |
 | `~/.config/nvim` | `nvim/` |
 | `~/.config/ghostty` | `ghostty/` |
 | `~/.config/lazygit` | `lazygit/` |
-| `~/.config/kitty/<user>.conf` | `.kitty.conf` |
 | `~/.claude/statusline-command.py` | `claude/statusline-command.py` |
 
 Secrets are sourced from `~/.dotfiles/.zsh_secrets` (git-ignored, never committed). Aliases live in `.zsh_alias`.
