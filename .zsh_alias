@@ -1,0 +1,38 @@
+# anything that i want to use in LG : i have to have as a func
+alias ll="ls -lah"
+alias lg='LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml" lazygit'
+
+# TODO decide if want to use tmux or not
+alias tm="~/.dotfiles/scripts/tmux_session.sh"
+alias p=". ~/.dotfiles/scripts/project.sh ~/code"
+alias pw=". ~/.dotfiles/scripts/project.sh ~/.worktrees/"
+alias pn=". ~/.dotfiles/scripts/projectnvim.sh"
+alias dot="cd ~/.dotfiles"
+
+# home server stuff
+alias eup="wakeonlan -i $EVILEEYORE_SERVER_IP $EVILEEYORE_SERVER_MAC"
+alias essh="ssh evileeyore@$EVILEEYORE_SERVER_IP"
+
+# Claude
+alias cr="claude --resume"
+alias cc="claude --continue"
+
+# git shit
+ga () {
+  git commit -a -n --amend --no-edit
+}
+
+gp () {
+  CUR_BRANCH=$(git branch --show-current)
+  git push -f origin $CUR_BRANCH
+}
+
+# nvim dev stuff
+cleannvim () {
+  rm -rf $HOME/.local/state/nvim
+  rm -rf $HOME/.local/share/nvim
+  rm -rf $HOME/.cache/nvim
+}
+
+alias gk="ghostty +list-keybinds"
+
