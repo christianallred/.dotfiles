@@ -1,5 +1,5 @@
-local attachGroup = vim.api.nvim_create_augroup('lsp-attach', { clear = true })
-vim.api.nvim_create_autocmd('LspAttach', {
+local attachGroup = vim.api.nvim_create_augroup("lsp-attach", { clear = true })
+vim.api.nvim_create_autocmd("LspAttach", {
   group = attachGroup,
   callback = function(event)
     local map = function(mode, keys, func, desc)
@@ -12,7 +12,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map("n", "gr", function()
       tele_builtin.lsp_references({ show_line = false })
     end, "[g]oto [r]eferences")
-    --
     map("n", "gi", tele_builtin.lsp_implementations, "[g]oto [i]mplementation")
     map("n", "<leader>D", tele_builtin.lsp_type_definitions, "Type [D]efinition")
     map("n", "<leader>ds", tele_builtin.lsp_document_symbols, "[d]ocument [s]ymbols")
@@ -25,10 +24,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction")
     map("n", "<leader>rs", ":LspRestart<CR>", "Restart LSP")
 
-    -- This belong somewhere else
-    map("n", "[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
-    map("n", "]d", vim.diagnostic.goto_next, "Go to next diagnostic")
+    map("n", "[d", function()
+      vim.diagnostic.jump({ count = -1, float = true })
+    end, "Go to previous diagnostic")
+    map("n", "]d", function()
+      vim.diagnostic.jump({ count = 1, float = true })
+    end, "Go to next diagnostic")
     map("n", "<leader>d", vim.diagnostic.open_float, "Show line diagnostics")
-  end,
 
+    -- Native completion (vim.lsp.completion is auto-enabled in lsp.lua)
+    map("i", "<C-Space>", function()
+      vim.lsp.completion.get()
+    end, "Trigger completion")
+  end,
 })

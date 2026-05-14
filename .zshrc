@@ -1,5 +1,6 @@
-# Load secrets right up front
+export EDITOR=nvim
 
+# Load secrets right up front
 if [ -f ~/.dotfiles/.zsh_secrets ]; then
   source ~/.dotfiles/.zsh_secrets
 fi
