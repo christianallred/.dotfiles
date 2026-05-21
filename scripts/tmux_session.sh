@@ -14,7 +14,8 @@ else
     selected=$(~/.dotfiles/scripts/pick_project.sh) || exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+# Session name = picked path with $HOME stripped; tmux disallows ':', '.', '?'
+selected_name=$(echo "${selected#$HOME/}" | tr ':.?' '___')
 tmux_running=$(pgrep tmux)
 
 setup_windows() {
