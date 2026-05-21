@@ -6,6 +6,13 @@ alias lg='LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml" lazygit'
 alias tm="~/.dotfiles/scripts/tmux_session.sh"
 alias tmx="~/.dotfiles/scripts/tmux_session.sh ."
 
+# Pick an existing tmux session to attach to
+ta() {
+  local s
+  s=$(tmux ls -F '#S' 2>/dev/null | fzf --reverse --prompt='session> ') || return
+  tmux a -t "$s"
+}
+
 # Pick a project from ~/code or a worktree under ~/code/worktrees/<repo>/<branch>
 p() {
     local selected
