@@ -22,7 +22,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "gD", vim.lsp.buf.declaration, "[g]oto [D]eclaration")
 
     map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction")
-    map("n", "<leader>rs", ":LspRestart<CR>", "Restart LSP")
+    map("n", "<leader>rs", function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      local clients = vim.lsp.get_clients({ bufnr = bufnr })
+      for _, client in ipairs(clients) do
+        vim.lsp.stop_client(client.id)
+      end
+      -- Re-fire FileType so enabled servers reattach, without reloading the
+      -- buffer (avoids E37 on unsaved changes). Wait for clients to exit first.
+      vim.defer_fn(function()
+        vim.api.nvim_exec_autocmds("FileType", { buffer = bufnr })
+      end, 300)
+    end, "Restart LSP")
 
     map("n", "[d", function()
       vim.diagnostic.jump({ count = -1, float = true })

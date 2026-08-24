@@ -37,7 +37,7 @@ Plugin manager: **lazy.nvim** (bootstrap in `nvim/lua/lazy-manager.lua`). Entry 
 
 Plugin configs are in `nvim/lua/plugins/`. LSP server configs are in `nvim/lsp/` — add a new server by creating `<servername>.lua` there.
 
-Formatter: **stylua** (configured in `nvim/stylua.toml` — tab indents, width 4).
+Formatter: **stylua** (configured in `nvim/stylua.toml` — space indents, width 2).
 
 AI integrations: **avante.nvim** (Claude claude-sonnet-4-20250514) and **mcphub.nvim** (MCP support via npm).
 
