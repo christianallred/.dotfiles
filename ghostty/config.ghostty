@@ -6,6 +6,10 @@ window-padding-x = 15
 window-padding-y = 0
 window-padding-color = extend
 
+# Left Option sends Meta/Alt (ESC-prefixed) so <M-...> bindings reach nvim/tmux.
+# Right Option still composes macOS special characters (é, –, …).
+macos-option-as-alt = left
+
 # Forward Cmd+<digit> to tmux as Alt+<digit> (ESC + digit) so tmux can bind it.
 # Uses `super+digit_N` to match (and override) Ghostty's default tab-switch trigger.
 keybind = super+digit_1=text:\x1b1

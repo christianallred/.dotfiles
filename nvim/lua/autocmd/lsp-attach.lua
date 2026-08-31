@@ -44,7 +44,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>d", vim.diagnostic.open_float, "Show line diagnostics")
 
     -- Native completion (vim.lsp.completion is auto-enabled in lsp.lua)
-    map("i", "<C-Space>", function()
+    map("i", "<M-Space>", function()
       vim.lsp.completion.get()
     end, "Trigger completion")
   end,
