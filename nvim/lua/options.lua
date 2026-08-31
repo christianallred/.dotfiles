@@ -29,6 +29,14 @@ opt.scrolloff = 8 -- this make it so that cursor never gets to the bottom or top
 opt.signcolumn = "yes"
 -- opt.isfname:append("@-@")
 
+-- completion (native vim.lsp.completion, see lua/lsp.lua)
+-- menuone: show menu even for a single match
+-- noselect: don't preselect/insert anything until I pick it with <C-n>/<C-p>
+-- popup:   show docs in a floating window instead of a preview split
+-- fuzzy:   fuzzy matching in the menu
+opt.completeopt = { "menu", "menuone", "noselect", "popup", "fuzzy" }
+opt.shortmess:append("c") -- don't spam "match 1 of 40" in the cmdline
+
 opt.updatetime = 50
 opt.colorcolumn = "120" -- adds a colored bar at 120 charts
 opt.exrc = true
