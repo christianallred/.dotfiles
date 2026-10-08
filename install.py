@@ -68,7 +68,6 @@ def configure_statusline():
 
 def main():
     source_from_rc(".zshrc")
-    source_from_rc(".bashrc")
 
     link("lazygit/", DOTFILES / "lazygit", HOME / ".config" / "lazygit")
     link("ghostty/", DOTFILES / "ghostty", HOME / ".config" / "ghostty")

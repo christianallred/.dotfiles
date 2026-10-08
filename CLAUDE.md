@@ -10,7 +10,7 @@ Run from anywhere:
 ~/.dotfiles/install.py
 ```
 
-This creates symlinks from `~/.dotfiles/` to the standard config locations. It does **not** use stow or chezmoi — all linking is done by hand in `install.py`. The exceptions are `~/.zshrc` and `~/.bashrc`: the script appends a `source ~/.dotfiles/...` line to them instead, so existing contents are preserved. It also merges a `statusLine` entry into `~/.claude/settings.json` without touching other keys.
+This creates symlinks from `~/.dotfiles/` to the standard config locations. It does **not** use stow or chezmoi — all linking is done by hand in `install.py`. The exception is `~/.zshrc`: the script appends a `source ~/.dotfiles/.zshrc` line to it instead, so existing contents are preserved. Bash is not configured; zsh is the only supported shell. It also merges a `statusLine` entry into `~/.claude/settings.json` without touching other keys.
 
 ## Architecture
 
@@ -19,7 +19,6 @@ This is a symlink-based dotfiles repo. Everything lives in `~/.dotfiles/` and ge
 | Config | Links to |
 |--------|----------|
 | `~/.zshrc` | sources `.zshrc` |
-| `~/.bashrc` | sources `.bashrc` |
 | `~/.config/nvim` | `nvim/` |
 | `~/.config/ghostty` | `ghostty/` |
 | `~/.config/lazygit` | `lazygit/` |
