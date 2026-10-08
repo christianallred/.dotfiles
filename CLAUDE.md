@@ -10,7 +10,7 @@ Run from anywhere:
 ~/.dotfiles/install.py
 ```
 
-This creates symlinks from `~/.dotfiles/` to the standard config locations. It does **not** use stow or chezmoi — all linking is done by hand in `install.py`. The exception is `~/.zshrc`: the script appends a `source ~/.dotfiles/.zshrc` line to it instead, so existing contents are preserved. Bash is not configured; zsh is the only supported shell. It also merges a `statusLine` entry into `~/.claude/settings.json` without touching other keys.
+This creates symlinks from `~/.dotfiles/` to the standard config locations. It does **not** use stow or chezmoi — all linking is done by hand in `install.py`. The exception is `~/.zshrc`: the script appends a `source ~/.dotfiles/.zshrc` line to it instead, so existing contents are preserved. Bash is not configured; zsh is the only supported shell. It also merges a `statusLine` entry into `~/.claude/settings.json` without touching other keys. Before linking anything it checks for the tools the setup depends on (`REQUIRED_TOOLS` / `OPTIONAL_TOOLS` at the top of `install.py`) and asks before continuing if required ones are missing — add new dependencies there.
 
 ## Architecture
 

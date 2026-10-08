@@ -1,10 +1,74 @@
 #!/usr/bin/env python3
 import json
+import platform
+import re
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
 HOME = Path.home()
 DOTFILES = HOME / ".dotfiles"
+
+MIN_NVIM = (0, 12)
+
+# (command, what uses it, brew package, apt package)
+REQUIRED_TOOLS = [
+    ("zsh", "shell config", "zsh", "zsh"),
+    ("git", "everything", "git", "git"),
+    ("nvim", "editor (0.12+ for nvim-treesitter main)", "neovim", None),
+    ("tmux", "tm / ta session scripts", "tmux", "tmux"),
+    ("lazygit", "lg alias, tmux session window", "lazygit", None),
+    ("fzf", "project and session pickers", "fzf", "fzf"),
+    ("tree-sitter", "builds nvim-treesitter parsers", "tree-sitter", None),
+    ("cc", "C compiler for treesitter parsers", None, "build-essential"),
+    ("rg", "telescope live grep", "ripgrep", "ripgrep"),
+]
+
+OPTIONAL_TOOLS = [
+    ("make", "avante.nvim build", None, "make"),
+    ("npm", "mcphub.nvim build", "node", None),
+    ("claude", "Claude Code, tmux session window", None, None),
+    ("ghostty", "terminal config", "ghostty", None),
+    ("wakeonlan", "eup alias", "wakeonlan", "wakeonlan"),
+]
+
+
+def nvim_too_old():
+    out = subprocess.run(["nvim", "--version"], capture_output=True, text=True).stdout
+    match = re.search(r"v(\d+)\.(\d+)", out)
+    return match and (int(match[1]), int(match[2])) < MIN_NVIM
+
+
+def describe(cmd, used_by, brew, apt):
+    pkg = brew if platform.system() == "Darwin" else apt
+    hint = ""
+    if pkg:
+        hint = f" (brew install {pkg})" if platform.system() == "Darwin" else f" (sudo apt install {pkg})"
+    return f"  - {cmd}: {used_by}{hint}"
+
+
+def check_tools():
+    missing = [t for t in REQUIRED_TOOLS if not shutil.which(t[0])]
+    missing_optional = [t for t in OPTIONAL_TOOLS if not shutil.which(t[0])]
+    old_nvim = shutil.which("nvim") and nvim_too_old()
+
+    if not (missing or missing_optional or old_nvim):
+        print("all tools found")
+        return
+
+    if missing:
+        print("missing tools:")
+        print("\n".join(describe(*t) for t in missing))
+    if old_nvim:
+        print(f"nvim is older than {'.'.join(map(str, MIN_NVIM))}, nvim-treesitter needs a newer version")
+    if missing_optional:
+        print("missing optional tools:")
+        print("\n".join(describe(*t) for t in missing_optional))
+
+    if (missing or old_nvim) and input("\ncontinue anyway? [y/N] ").strip().lower() != "y":
+        sys.exit(1)
+    print()
 
 STATUSLINE_SETTING = {
     "type": "command",
@@ -67,6 +131,8 @@ def configure_statusline():
 
 
 def main():
+    check_tools()
+
     source_from_rc(".zshrc")
 
     link("lazygit/", DOTFILES / "lazygit", HOME / ".config" / "lazygit")
