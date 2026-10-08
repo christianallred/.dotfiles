@@ -73,6 +73,7 @@ def main():
     link("lazygit/", DOTFILES / "lazygit", HOME / ".config" / "lazygit")
     link("ghostty/", DOTFILES / "ghostty", HOME / ".config" / "ghostty")
     link("nvim/", DOTFILES / "nvim", HOME / ".config" / "nvim")
+    link(".tmux.conf", DOTFILES / ".tmux.conf", HOME / ".tmux.conf")
     link(
         "claude statusline",
         DOTFILES / "claude" / "statusline-command.py",

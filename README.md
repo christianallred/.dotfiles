@@ -1,4 +1,3 @@
-# my dot file
+# my dotfiles
 
-Too use run `./.dotfiles/install.sh`
-
+To install, run `~/.dotfiles/install.py`

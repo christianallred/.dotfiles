@@ -23,6 +23,7 @@ This is a symlink-based dotfiles repo. Everything lives in `~/.dotfiles/` and ge
 | `~/.config/nvim` | `nvim/` |
 | `~/.config/ghostty` | `ghostty/` |
 | `~/.config/lazygit` | `lazygit/` |
+| `~/.tmux.conf` | `.tmux.conf` |
 | `~/.claude/statusline-command.py` | `claude/statusline-command.py` |
 
 Secrets are sourced from `~/.dotfiles/.zsh_secrets` (git-ignored, never committed). Aliases live in `.zsh_alias`.
