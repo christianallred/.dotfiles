@@ -17,7 +17,6 @@ opt.wrap = true -- dont wrap lines
 
 opt.swapfile = false
 opt.backup = false
-opt.undodir = os.getenv("HOME") .. "/.nvim/undodir" -- this was for undotree that i dont use anymore
 opt.undofile = true
 
 opt.hlsearch = true

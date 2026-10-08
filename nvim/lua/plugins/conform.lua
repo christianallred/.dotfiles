@@ -6,7 +6,6 @@ return {
     {
       "<leader>F",
       function()
-        vim.lsp.buf.format({ async = false })
         require("conform").format({ async = true })
       end,
       mode = "",
