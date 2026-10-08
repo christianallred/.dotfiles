@@ -22,3 +22,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
   # LibPQ was not happy
   export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 fi
+
+# this was needed for claude? 
+export PATH="$HOME/.local/bin:$PATH"
