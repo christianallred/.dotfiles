@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Pick a project/worktree dir and attach (or create) a tmux session for it.
-# A fresh session gets five windows: claude, nvim, lazygit, spock, terminal.
+# A fresh session gets four windows: claude, nvim, lazygit, terminal.
+# A standalone "0-spock" session (one window) is also ensured; the 0- prefix sorts it first in the session list.
 
 if [[ $# -eq 1 ]]; then
     # Resolve relative paths (including ".") to absolute so the session name is sane
@@ -31,21 +32,27 @@ setup_windows() {
     tmux new-window -t "$session" -n lazygit -c "$dir"
     tmux send-keys -t "$session:lazygit" "lg" C-m
 
-    tmux new-window -t "$session" -n spock -c "$dir"
-    tmux send-keys -t "$session:spock" "spock" C-m
-
     tmux new-window -t "$session" -n terminal -c "$dir"
 
     tmux select-window -t "$session:claude"
 }
 
+ensure_spock_session() {
+    tmux has-session -t="0-spock" 2> /dev/null && return
+    tmux new-session -ds "0-spock" -n spock -c "$HOME"
+    tmux send-keys -t "0-spock:spock" "spock" C-m
+}
+
 # Not inside tmux and no server running: start fresh and attach
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    ensure_spock_session
     tmux new-session -ds "$selected_name" -c "$selected"
     setup_windows "$selected_name" "$selected"
     tmux attach -t "$selected_name"
     exit 0
 fi
+
+ensure_spock_session
 
 # Session doesn't exist yet, create it detached
 if ! tmux has-session -t="$selected_name" 2> /dev/null; then
