@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Pick a project/worktree dir and attach (or create) a tmux session for it.
-# A fresh session gets four windows: claude, nvim, lazygit, terminal.
+# A fresh session gets five windows: claude, nvim, lazygit, spock, terminal.
 
 if [[ $# -eq 1 ]]; then
     # Resolve relative paths (including ".") to absolute so the session name is sane
@@ -30,6 +30,9 @@ setup_windows() {
 
     tmux new-window -t "$session" -n lazygit -c "$dir"
     tmux send-keys -t "$session:lazygit" "lg" C-m
+
+    tmux new-window -t "$session" -n spock -c "$dir"
+    tmux send-keys -t "$session:spock" "spock" C-m
 
     tmux new-window -t "$session" -n terminal -c "$dir"
 

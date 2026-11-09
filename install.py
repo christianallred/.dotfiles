@@ -29,6 +29,7 @@ OPTIONAL_TOOLS = [
     ("make", "avante.nvim build", None, "make"),
     ("npm", "mcphub.nvim build", "node", None),
     ("claude", "Claude Code, tmux session window", None, None),
+    ("spock", "tmux session window (go install github.com/tava-health/review-api/cmd/spock@latest)", None, None),
     ("ghostty", "terminal config", "ghostty", None),
     ("wakeonlan", "eup alias", "wakeonlan", "wakeonlan"),
 ]
