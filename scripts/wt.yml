@@ -1,0 +1,17 @@
+# Post-create actions for `wt`, keyed by repo dir name under ~/code.
+# Each action runs in order with bash inside the new worktree; the first failure stops the
+# run and skips tmux. nvm is loaded, so `nvm use` carries over to later actions.
+# Vars: $SRC (main checkout), $WT (new worktree), $REPO, $BRANCH.
+
+feather:
+#  - cp -Rc "$SRC/node_modules" "$WT/node_modules"
+  - cp "$SRC/apps/feather/.env" "$WT/apps/feather/.env"
+  - cp "$SRC/.claude/settings.local.json" "$WT/.claude/settings.local.json"
+  - nvm use
+  - pnpm install
+
+nuna:
+  - cp "$SRC/.env" "$WT/.env"
+  - cp "$SRC/.claude/settings.local.json" "$WT/.claude/settings.local.json"
+  - nvm use
+  - pnpm install

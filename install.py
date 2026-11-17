@@ -20,6 +20,7 @@ REQUIRED_TOOLS = [
     ("tmux", "tm / ta session scripts", "tmux", "tmux"),
     ("lazygit", "lg alias, tmux session window", "lazygit", None),
     ("fzf", "project and session pickers", "fzf", "fzf"),
+    ("yq", "wt post-create actions (mikefarah yq v4)", "yq", None),
     ("tree-sitter", "builds nvim-treesitter parsers", "tree-sitter-cli", None),
     ("cc", "C compiler for treesitter parsers", None, "build-essential"),
     ("rg", "telescope live grep", "ripgrep", "ripgrep"),
