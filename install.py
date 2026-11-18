@@ -77,6 +77,20 @@ STATUSLINE_SETTING = {
     "command": "~/.claude/statusline-command.py",
 }
 
+READY_SOUND = "~/.claude/hooks/ready-sound.sh"
+
+# (event, hook entry) merged into ~/.claude/settings.json without touching other hooks
+CLAUDE_HOOKS = [
+    ("Stop", {"hooks": [{"type": "command", "command": f"{READY_SOUND} Glass", "timeout": 5}]}),
+    (
+        "Notification",
+        {
+            "matcher": "permission_prompt|elicitation_dialog",
+            "hooks": [{"type": "command", "command": f"{READY_SOUND} Ping", "timeout": 5}],
+        },
+    ),
+]
+
 
 def source_from_rc(rc_name):
     rc = HOME / rc_name
@@ -107,20 +121,9 @@ def link(name, src, dest):
     dest.symlink_to(src)
 
 
-def configure_statusline():
-    settings_path = HOME / ".claude" / "settings.json"
-
-    settings = {}
-    if settings_path.exists():
-        try:
-            settings = json.loads(settings_path.read_text() or "{}")
-        except json.JSONDecodeError as e:
-            print(f"skipping claude statusline setting ({settings_path} is not valid JSON: {e})")
-            return
-
+def merge_statusline(settings):
     if settings.get("statusLine") == STATUSLINE_SETTING:
-        print("skipping claude statusline setting (already configured)")
-        return
+        return False
 
     if "statusLine" in settings:
         print(f"replacing existing claude statusLine setting: {settings['statusLine']}")
@@ -128,6 +131,42 @@ def configure_statusline():
         print("adding claude statusline setting")
 
     settings["statusLine"] = STATUSLINE_SETTING
+    return True
+
+
+def merge_hooks(settings):
+    hooks = settings.setdefault("hooks", {})
+    changed = False
+
+    for event, entry in CLAUDE_HOOKS:
+        command = entry["hooks"][0]["command"]
+        entries = hooks.setdefault(event, [])
+        if any(h.get("command") == command for e in entries for h in e.get("hooks", [])):
+            continue
+
+        print(f"adding claude {event} hook: {command}")
+        entries.append(entry)
+        changed = True
+
+    return changed
+
+
+def configure_claude_settings():
+    settings_path = HOME / ".claude" / "settings.json"
+
+    settings = {}
+    if settings_path.exists():
+        try:
+            settings = json.loads(settings_path.read_text() or "{}")
+        except json.JSONDecodeError as e:
+            print(f"skipping claude settings ({settings_path} is not valid JSON: {e})")
+            return
+
+    # list, not a generator: both merges must run
+    if not any([merge_statusline(settings), merge_hooks(settings)]):
+        print("skipping claude settings (already configured)")
+        return
+
     settings_path.parent.mkdir(parents=True, exist_ok=True)
     settings_path.write_text(json.dumps(settings, indent=2) + "\n")
 
@@ -146,8 +185,13 @@ def main():
         DOTFILES / "claude" / "statusline-command.py",
         HOME / ".claude" / "statusline-command.py",
     )
+    link(
+        "claude ready sound hook",
+        DOTFILES / "claude" / "ready-sound.sh",
+        HOME / ".claude" / "hooks" / "ready-sound.sh",
+    )
 
-    configure_statusline()
+    configure_claude_settings()
 
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ Run from anywhere:
 ~/.dotfiles/install.py
 ```
 
-This creates symlinks from `~/.dotfiles/` to the standard config locations. It does **not** use stow or chezmoi — all linking is done by hand in `install.py`. The exception is `~/.zshrc`: the script appends a `source ~/.dotfiles/.zshrc` line to it instead, so existing contents are preserved. Bash is not configured; zsh is the only supported shell. It also merges a `statusLine` entry into `~/.claude/settings.json` without touching other keys. Before linking anything it checks for the tools the setup depends on (`REQUIRED_TOOLS` / `OPTIONAL_TOOLS` at the top of `install.py`) and asks before continuing if required ones are missing — add new dependencies there.
+This creates symlinks from `~/.dotfiles/` to the standard config locations. It does **not** use stow or chezmoi — all linking is done by hand in `install.py`. The exception is `~/.zshrc`: the script appends a `source ~/.dotfiles/.zshrc` line to it instead, so existing contents are preserved. Bash is not configured; zsh is the only supported shell. It also merges a `statusLine` entry and the hooks in `CLAUDE_HOOKS` into `~/.claude/settings.json` without touching other keys or existing hooks. Before linking anything it checks for the tools the setup depends on (`REQUIRED_TOOLS` / `OPTIONAL_TOOLS` at the top of `install.py`) and asks before continuing if required ones are missing — add new dependencies there.
 
 ## Architecture
 
@@ -24,6 +24,7 @@ This is a symlink-based dotfiles repo. Everything lives in `~/.dotfiles/` and ge
 | `~/.config/lazygit` | `lazygit/` |
 | `~/.tmux.conf` | `.tmux.conf` |
 | `~/.claude/statusline-command.py` | `claude/statusline-command.py` |
+| `~/.claude/hooks/ready-sound.sh` | `claude/ready-sound.sh` |
 
 Secrets are sourced from `~/.dotfiles/.zsh_secrets` (git-ignored, never committed). Aliases live in `.zsh_alias`.
 
@@ -45,3 +46,7 @@ AI integrations: **avante.nvim** (Claude claude-sonnet-4-20250514) and **mcphub.
 ## Claude Statusline
 
 `claude/statusline-command.py` is a custom Python script that formats Claude session info for the terminal statusline. It displays model, directory, git branch/status, context %, cost, duration, and rate limits with color coding.
+
+## Claude Ready Sound
+
+`claude/ready-sound.sh <sound>` plays a macOS system sound with `afplay` and does nothing where `afplay` is missing. The `Stop` hook plays Glass when Claude finishes a turn; the `Notification` hook plays Ping for permission prompts and elicitation dialogs.
