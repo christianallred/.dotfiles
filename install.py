@@ -93,13 +93,16 @@ def hook(event, command, matcher=None):
 CLAUDE_HOOKS = [
     hook("Stop", f"{READY_SOUND} Glass"),
     hook("Notification", f"{READY_SOUND} Ping", NEEDS_INPUT),
-    hook("Stop", f"{TMUX_WAITING} set"),
-    hook("Notification", f"{TMUX_WAITING} set", NEEDS_INPUT),
+    hook("Stop", f"{TMUX_WAITING} done"),
+    hook("Notification", f"{TMUX_WAITING} blocked", NEEDS_INPUT),
     hook("UserPromptSubmit", f"{TMUX_WAITING} clear"),
     # clears the flag once a permission prompt is answered and the tool has run
     hook("PostToolUse", f"{TMUX_WAITING} clear"),
     hook("SessionEnd", f"{TMUX_WAITING} clear"),
 ]
+
+# commands earlier versions of this script installed, removed from settings.json on the next run
+RETIRED_HOOK_COMMANDS = [f"{TMUX_WAITING} set"]
 
 
 def source_from_rc(rc_name):
@@ -147,6 +150,15 @@ def merge_statusline(settings):
 def merge_hooks(settings):
     hooks = settings.setdefault("hooks", {})
     changed = False
+
+    for event, entries in hooks.items():
+        for entry in entries:
+            kept = [h for h in entry.get("hooks", []) if h.get("command") not in RETIRED_HOOK_COMMANDS]
+            if len(kept) != len(entry.get("hooks", [])):
+                print(f"removing retired claude {event} hook")
+                entry["hooks"] = kept
+                changed = True
+        hooks[event] = [e for e in entries if e.get("hooks")]
 
     for event, entry in CLAUDE_HOOKS:
         command = entry["hooks"][0]["command"]
