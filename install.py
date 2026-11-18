@@ -78,17 +78,27 @@ STATUSLINE_SETTING = {
 }
 
 READY_SOUND = "~/.claude/hooks/ready-sound.sh"
+TMUX_WAITING = "~/.claude/hooks/tmux-waiting.sh"
+NEEDS_INPUT = "permission_prompt|elicitation_dialog"
+
+
+def hook(event, command, matcher=None):
+    entry = {"hooks": [{"type": "command", "command": command, "timeout": 5}]}
+    if matcher:
+        entry = {"matcher": matcher, **entry}
+    return event, entry
+
 
 # (event, hook entry) merged into ~/.claude/settings.json without touching other hooks
 CLAUDE_HOOKS = [
-    ("Stop", {"hooks": [{"type": "command", "command": f"{READY_SOUND} Glass", "timeout": 5}]}),
-    (
-        "Notification",
-        {
-            "matcher": "permission_prompt|elicitation_dialog",
-            "hooks": [{"type": "command", "command": f"{READY_SOUND} Ping", "timeout": 5}],
-        },
-    ),
+    hook("Stop", f"{READY_SOUND} Glass"),
+    hook("Notification", f"{READY_SOUND} Ping", NEEDS_INPUT),
+    hook("Stop", f"{TMUX_WAITING} set"),
+    hook("Notification", f"{TMUX_WAITING} set", NEEDS_INPUT),
+    hook("UserPromptSubmit", f"{TMUX_WAITING} clear"),
+    # clears the flag once a permission prompt is answered and the tool has run
+    hook("PostToolUse", f"{TMUX_WAITING} clear"),
+    hook("SessionEnd", f"{TMUX_WAITING} clear"),
 ]
 
 
@@ -189,6 +199,11 @@ def main():
         "claude ready sound hook",
         DOTFILES / "claude" / "ready-sound.sh",
         HOME / ".claude" / "hooks" / "ready-sound.sh",
+    )
+    link(
+        "claude tmux waiting hook",
+        DOTFILES / "claude" / "tmux-waiting.sh",
+        HOME / ".claude" / "hooks" / "tmux-waiting.sh",
     )
 
     configure_claude_settings()

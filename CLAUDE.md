@@ -25,6 +25,7 @@ This is a symlink-based dotfiles repo. Everything lives in `~/.dotfiles/` and ge
 | `~/.tmux.conf` | `.tmux.conf` |
 | `~/.claude/statusline-command.py` | `claude/statusline-command.py` |
 | `~/.claude/hooks/ready-sound.sh` | `claude/ready-sound.sh` |
+| `~/.claude/hooks/tmux-waiting.sh` | `claude/tmux-waiting.sh` |
 
 Secrets are sourced from `~/.dotfiles/.zsh_secrets` (git-ignored, never committed). Aliases live in `.zsh_alias`.
 
@@ -50,3 +51,7 @@ AI integrations: **avante.nvim** (Claude claude-sonnet-4-20250514) and **mcphub.
 ## Claude Ready Sound
 
 `claude/ready-sound.sh <sound>` plays a macOS system sound with `afplay` and does nothing where `afplay` is missing. The `Stop` hook plays Glass when Claude finishes a turn; the `Notification` hook plays Ping for permission prompts and elicitation dialogs.
+
+## Claude Waiting Flag in tmux
+
+`claude/tmux-waiting.sh set|clear` sets or unsets the `@claude_waiting` option on the tmux session that owns `$TMUX_PANE`, and does nothing outside tmux. The `Stop` and `Notification` hooks set it; `UserPromptSubmit`, `PostToolUse` and `SessionEnd` clear it. `.tmux.conf` reads it in the `prefix + s` session list and in `status-right`.
