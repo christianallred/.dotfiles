@@ -54,4 +54,4 @@ AI integrations: **avante.nvim** (Claude claude-sonnet-4-20250514) and **mcphub.
 
 ## Claude Waiting Flag in tmux
 
-`claude/tmux-waiting.sh blocked|done|clear` sets or unsets the `@claude_waiting` option on the tmux session that owns `$TMUX_PANE`, and does nothing outside tmux. The `Notification` hook sets `blocked`; the `Stop` hook sets `done`; `UserPromptSubmit`, `PostToolUse` and `SessionEnd` clear it. `.tmux.conf` reads it in the `prefix + s` session list and in `status-right` and binds `prefix + u` / `prefix + U` to clear the flag for the current session / every session.
+`claude/tmux-waiting.sh blocked|done|clear` sets or unsets the `@claude_waiting` option on the tmux session that owns `$TMUX_PANE`, and does nothing outside tmux. The `Notification` hook sets `blocked`; the `Stop` hook sets `done`; `UserPromptSubmit`, `PostToolUse`, `SessionStart` and `SessionEnd` clear it. `.tmux.conf` reads it in the `prefix + s` session list and in `status-right` and binds `prefix + u` / `prefix + U` to clear the flag for the current session / every session.

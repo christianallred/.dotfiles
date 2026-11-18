@@ -99,6 +99,7 @@ CLAUDE_HOOKS = [
     # clears the flag once a permission prompt is answered and the tool has run
     hook("PostToolUse", f"{TMUX_WAITING} clear"),
     hook("SessionEnd", f"{TMUX_WAITING} clear"),
+    hook("SessionStart", f"{TMUX_WAITING} clear"),
 ]
 
 # commands earlier versions of this script installed, removed from settings.json on the next run
