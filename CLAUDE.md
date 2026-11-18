@@ -12,6 +12,10 @@ Run from anywhere:
 
 This creates symlinks from `~/.dotfiles/` to the standard config locations. It does **not** use stow or chezmoi — all linking is done by hand in `install.py`. The exception is `~/.zshrc`: the script appends a `source ~/.dotfiles/.zshrc` line to it instead, so existing contents are preserved. Bash is not configured; zsh is the only supported shell. It also merges a `statusLine` entry and the hooks in `CLAUDE_HOOKS` into `~/.claude/settings.json` without touching other keys or existing hooks. Before linking anything it checks for the tools the setup depends on (`REQUIRED_TOOLS` / `OPTIONAL_TOOLS` at the top of `install.py`) and asks before continuing if required ones are missing — add new dependencies there.
 
+## Git Workflow
+
+This is a personal repo with no PR process: commit directly to `main` and push. The branch, worktree, draft-PR and review-gate rules from the shared Tava guidance do not apply here.
+
 ## Architecture
 
 This is a symlink-based dotfiles repo. Everything lives in `~/.dotfiles/` and gets linked into place:
@@ -42,7 +46,7 @@ Plugin configs are in `nvim/lua/plugins/`. LSP server configs are in `nvim/lsp/`
 
 Formatter: **stylua** (configured in `nvim/stylua.toml` — space indents, width 2).
 
-AI integrations: **avante.nvim** (Claude claude-sonnet-4-20250514) and **mcphub.nvim** (MCP support via npm).
+AI integrations: **avante.nvim** (provider and model set in `nvim/lua/plugins/ai/avante.lua`) and **mcphub.nvim** (MCP support via npm).
 
 ## Claude Statusline
 
