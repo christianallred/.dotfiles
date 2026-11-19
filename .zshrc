@@ -43,6 +43,9 @@ export PATH=$PATH:/usr/local/go/bin
 if [[ "$(uname)" == "Darwin" ]]; then
   # LibPQ was not happy
   export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+else
+  # macOS sets this prompt in /etc/zshrc; Linux (and WSL) falls back to zsh's bare "%m%# "
+  PROMPT='%n@%m %1~ %# '
 fi
 
 # this was needed for claude? 
