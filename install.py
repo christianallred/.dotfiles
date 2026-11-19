@@ -35,6 +35,12 @@ OPTIONAL_TOOLS = [
     ("wakeonlan", "eup alias", "wakeonlan", "wakeonlan"),
 ]
 
+# Linux plays the claude ready sound with paplay; macOS uses afplay and WSL plays it on the Windows side
+if platform.system() == "Linux" and "microsoft" not in platform.release().lower():
+    OPTIONAL_TOOLS.append(
+        ("paplay", "claude ready sound (also needs sound-theme-freedesktop)", None, "pulseaudio-utils")
+    )
+
 
 def nvim_too_old():
     out = subprocess.run(["nvim", "--version"], capture_output=True, text=True).stdout
@@ -91,8 +97,8 @@ def hook(event, command, matcher=None):
 
 # (event, hook entry) merged into ~/.claude/settings.json without touching other hooks
 CLAUDE_HOOKS = [
-    hook("Stop", f"{READY_SOUND} Glass"),
-    hook("Notification", f"{READY_SOUND} Ping", NEEDS_INPUT),
+    hook("Stop", f"{READY_SOUND} done"),
+    hook("Notification", f"{READY_SOUND} blocked", NEEDS_INPUT),
     hook("Stop", f"{TMUX_WAITING} done"),
     hook("Notification", f"{TMUX_WAITING} blocked", NEEDS_INPUT),
     hook("UserPromptSubmit", f"{TMUX_WAITING} clear"),
@@ -103,7 +109,11 @@ CLAUDE_HOOKS = [
 ]
 
 # commands earlier versions of this script installed, removed from settings.json on the next run
-RETIRED_HOOK_COMMANDS = [f"{TMUX_WAITING} set"]
+RETIRED_HOOK_COMMANDS = [
+    f"{TMUX_WAITING} set",
+    f"{READY_SOUND} Glass",
+    f"{READY_SOUND} Ping",
+]
 
 
 def source_from_rc(rc_name):

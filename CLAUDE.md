@@ -54,7 +54,7 @@ AI integrations: **avante.nvim** (provider and model set in `nvim/lua/plugins/ai
 
 ## Claude Ready Sound
 
-`claude/ready-sound.sh <sound>` plays a macOS system sound with `afplay` and does nothing where `afplay` is missing. The `Stop` hook plays Glass when Claude finishes a turn; the `Notification` hook plays Ping for permission prompts and elicitation dialogs.
+`claude/ready-sound.sh done|blocked` plays a sound in the background and does nothing when no player is available. The `Stop` hook plays `done` when Claude finishes a turn; the `Notification` hook plays `blocked` for permission prompts and elicitation dialogs. macOS uses `afplay` (Glass / Ping). WSL plays `C:\Windows\Media` sounds through `powershell.exe` (Windows Notify System Generic / Windows Ding), since WSLg audio is unreliable. Linux uses `paplay` (or `pw-play`, `canberra-gtk-play`) with the freedesktop `complete` / `message` sounds.
 
 ## Claude Waiting Flag in tmux
 
