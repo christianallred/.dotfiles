@@ -1,2 +1,3 @@
 lazy-lock.json
 .zsh_secrets
+__pycache__/
